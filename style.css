@@ -1,0 +1,272 @@
+/* === CSS RESET & ROOT VARIABLES === */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      scroll-behavior: smooth;
+      font-family: "Segoe UI", sans-serif;
+      color-scheme: light dark;
+    }
+    body.dark {
+      --bg: #111;
+      --fg: #eee;
+      --brand-from: #66cfff;
+      --brand-to: #ff66cb;
+      --nav-link-default: rgba(255, 255, 255, 0.8);
+      --nav-link-hover: #ffcc00;
+      --sub-bg: rgba(255 255 255 / 0.05);
+    }
+    body:not(.dark) {
+      --bg: #fff;
+      --fg: #222;
+      --brand-from: #ff6b6b;
+      --brand-to: #f8e71c;
+      --nav-link-default: rgba(0, 0, 0, 0.7);
+      --nav-link-hover: #0066ff;
+      --sub-bg: rgba(0 0 0 / 0.05);
+    }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    :root {
+      --nav-height: 64px;
+    }
+
+    /* === NAVBAR STYLES === */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background-color: rgba(255, 255, 255, 0.25);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background-color 0.4s, box-shadow 0.4s;
+    }
+
+    
+    /* Fallback for browsers without backdrop-filter */
+    @supports not (backdrop-filter: blur(1px)) {
+      .navbar {
+        background-color: rgba(255, 255, 255, 0.9);
+      }
+    }
+    body.dark .navbar {
+      background-color: rgba(0, 0, 0, 0.25);
+    }
+    @supports not (backdrop-filter: blur(1px)) {
+      body.dark .navbar {
+        background-color: rgba(0, 0, 0, 0.85);
+      }
+    }
+
+    .brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+      position: relative;
+      background: linear-gradient(90deg, var(--brand-from), var(--brand-to));
+      background-size: 200%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: slide 6s linear infinite;
+    }
+    @keyframes slide {
+      0% {
+        background-position: 0%;
+      }
+      100% {
+        background-position: 200%;
+      }
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.25rem;
+    }
+    .nav-links > li {
+      position: relative;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--nav-link-default);
+      font-weight: 500;
+      position: relative;
+      padding: 0.25rem;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -2px;
+      width: 0;
+      height: 3px;
+      background: var(--brand-from);
+      border-radius: 2px;
+      transition: width 0.3s, left 0.3s;
+    }
+    .nav-links a:hover::after,
+    .nav-links a:focus::after {
+      width: 100%;
+      left: 0;
+    }
+    .nav-links a:hover,
+    .nav-links a:focus {
+      color: var(--nav-link-hover);
+    }
+    .nav-links a.active {
+      color: var(--nav-link-hover);
+    }
+
+    /* Submenu example under “Features” */
+    .nav-links li.submenu > a::after {
+      content: "▾";
+      margin-left: 0.25rem;
+      font-size: 0.6rem;
+      vertical-align: middle;
+    }
+    .nav-links li.submenu:hover ul,
+    .nav-links li.submenu:focus-within ul {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .nav-links li.submenu ul {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      background: var(--sub-bg);
+      border-radius: 4px;
+      padding: 0.5rem 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s;
+    }
+    .nav-links li.submenu ul li {
+      display: block;
+    }
+    .nav-links li.submenu ul a {
+      display: block;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* Mobile menu toggle button */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 18px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      height: 2px;
+      background: var(--nav-link-default);
+      border-radius: 1px;
+      transition: all 0.3s;
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* === MOBILE / RESPONSIVE === */
+    @media (max-width: 800px) {
+      .nav-links {
+        position: fixed;
+        top: var(--nav-height);
+        right: 0;
+        width: 70%;
+        height: calc(100% - var(--nav-height));
+        background: var(--sub-bg);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+        gap: 1.5rem;
+        transform: translateX(100%);
+        transition: transform 0.4s ease-in-out;
+      }
+      .nav-links.open {
+        transform: translateX(0);
+      }
+      .hamburger {
+        display: flex;
+        z-index: 1001;
+      }
+    }
+
+    /* === MAIN CONTENT WITH SNAP SECTIONS === */
+    main {
+      margin-top: var(--nav-height);
+      display: block;
+      scroll-snap-type: y mandatory;
+    }
+    section {
+      scroll-snap-align: start;
+      min-height: calc(100vh - var(--nav-height));
+      padding: 6rem 1.5rem;
+      display: block;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: rgb(17, 138, 8);
+      text-align: center;
+    }
+    section:nth-of-type(1) {
+      background: #e0f7fa;
+    }
+    section:nth-of-type(2) {
+      background: #ffecb3;
+    }
+    section:nth-of-type(3) {
+      background: #f8bbd0;
+    }
+    section:nth-of-type(4) {
+      background: #d1c4e9;
+    }
+
+    /* Theme-switch button */
+    .theme-switch {
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border: none;
+      background: var(--sub-bg);
+      color: var(--nav-link-default);
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    #contact {
+      font-size: small;
+      display: block;
+      margin:2rem
+    }
+img{
+  border-radius: 25%
+}

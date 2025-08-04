@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=1"
+  />
+  <title>Menu Navigation Demo Page</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="brand">My Brand</div>
+    <button
+      aria-label="Toggle menu"
+      class="hamburger"
+      id="burger"
+      aria-expanded="false"
+    >
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#sec1" class="nav-link">Home</a></li>
+      <li class="submenu">
+        <a href="#sec2" class="nav-link">Features</a>
+        <ul>
+          <li><a href="#sec2a" class="nav-link">Feature A</a></li>
+          <li><a href="#sec2b" class="nav-link">Feature B</a></li>
+        </ul>
+      </li>
+      <li><a href="#sec3" class="nav-link">About</a></li>
+      <li><a href="#sec4" class="nav-link">Contact</a></li>
+    </ul>
+    <button class="theme-switch" id="themeToggle" aria-label="Toggle theme">
+      🌙
+    </button>
+  </header>
+
+  <main>
+    <section data-nav-color="#00796b" id="sec1">
+      Section 1 – Home
+      <div>
+        <img src="https://images.pexels.com/photos/31993370/pexels-photo-31993370.jpeg" alt="Dog Image" size="contain" width="50%"/>
+      </div>
+    </section>
+    <section data-nav-color="#f57f17" id="sec2">
+      Section 2 – Features
+      <section id="sec2a">
+        Feature A
+      </section>
+      <section id="sec2b">
+        Feature B
+      </section>
+    </section>
+    <section data-nav-color="#880e4f" id="sec3">
+      Section 3 – About
+    <div id="contact">
+      <p>
+        This mini‑website demonstrates a variety of interactive menu-navigation patterns—such as 
+        top nav bars, dropdowns, mobile toggle menus, accordion submenus, breadcrumbs, 
+        and floating side panels—designed to let users move through layered content in three taps or fewer. 
+        It emphasizes clear, descriptive labels, shallow hierarchy, keyboard 
+        and screen‑reader support, and accessible, responsive behavior. 
+        It’s built purely for learning, prototyping, and inspiration.
+    </p>
+    </div>
+    </section>
+    <section data-nav-color="#4527a0" id="sec4">
+      Section 4 – Contact<br>
+    <div id="contact">
+        ABCXYZ Pvt Ltd,<br>
+        a2z colony,<br>
+        City: xyz<br>
+        Phone: 8823456zxc
+    </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
